@@ -114,3 +114,32 @@ class TestEdgeCases:
             with patch.object(harp, "_load_nouns", return_value=()):
                 name = harp.generate_name_with_options(components=3)
                 assert name == ""
+
+
+class TestSeed:
+    """Tests for deterministic seed generation."""
+
+    def test_same_seed_produces_same_name(self):
+        name1 = harp.generate_name_with_options(seed=42)
+        name2 = harp.generate_name_with_options(seed=42)
+        assert name1 == name2
+
+    def test_different_seeds_produce_different_names(self):
+        name1 = harp.generate_name_with_options(seed=42)
+        name2 = harp.generate_name_with_options(seed=43)
+        assert name1 != name2
+
+    def test_seed_with_options(self):
+        name1 = harp.generate_name_with_options(components=2, separator="_", seed=42)
+        name2 = harp.generate_name_with_options(components=2, separator="_", seed=42)
+        assert name1 == name2
+        assert "_" in name1
+
+    def test_generate_name_with_seed(self):
+        name1 = harp.generate_name(seed=42)
+        name2 = harp.generate_name(seed=42)
+        assert name1 == name2
+
+    def test_none_seed_is_random(self):
+        names = {harp.generate_name_with_options(seed=None) for _ in range(10)}
+        assert len(names) > 1
