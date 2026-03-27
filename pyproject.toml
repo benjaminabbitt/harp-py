@@ -1,0 +1,35 @@
+[project]
+name = "harp-names"
+dynamic = ["version"]
+description = "Generate random names from adjectives and nouns"
+readme = "README.md"
+authors = [
+    { name = "Ben", email = "ben+github@abbitt.me" }
+]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+harp = "harp.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "VERSION"
+pattern = "(?P<version>.+)"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/harp"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = ""
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
