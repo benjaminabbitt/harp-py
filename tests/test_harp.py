@@ -1,5 +1,7 @@
 """Tests for harp library."""
 
+from unittest.mock import patch
+
 import harp
 
 
@@ -89,3 +91,26 @@ class TestWordLists:
         nouns = harp._load_nouns()
         assert all(adj.strip() for adj in adjectives)
         assert all(noun.strip() for noun in nouns)
+
+
+class TestEdgeCases:
+    """Tests for edge cases."""
+
+    def test_empty_adjectives(self):
+        with patch.object(harp, "_load_adjectives", return_value=()):
+            name = harp.generate_name_with_options(components=3)
+            # Only noun should be present
+            assert name != ""
+
+    def test_empty_nouns(self):
+        with patch.object(harp, "_load_nouns", return_value=()):
+            name = harp.generate_name_with_options(components=3)
+            # Only adjectives should be present
+            parts = name.split("-")
+            assert len(parts) == 2
+
+    def test_empty_both(self):
+        with patch.object(harp, "_load_adjectives", return_value=()):
+            with patch.object(harp, "_load_nouns", return_value=()):
+                name = harp.generate_name_with_options(components=3)
+                assert name == ""

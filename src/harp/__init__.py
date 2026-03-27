@@ -11,7 +11,7 @@ from pathlib import Path
 
 try:
     from ._version import __version__
-except ImportError:
+except ImportError:  # pragma: no cover
     __version__ = "0.0.0"
 
 _DATA_DIR = Path(__file__).parent

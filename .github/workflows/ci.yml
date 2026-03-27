@@ -25,8 +25,8 @@ jobs:
       - name: Install dependencies
         run: uv sync --group dev
 
-      - name: Run tests
-        run: uv run pytest -v
+      - name: Run tests with coverage
+        run: uv run pytest --cov=harp --cov-report=term-missing
 
   lint:
     runs-on: ubuntu-latest
