@@ -15,30 +15,35 @@ def main(argv: list[str] | None = None) -> int:
         description="Generate human-readable random names",
     )
     parser.add_argument(
-        "-c", "--components",
+        "-c",
+        "--components",
         type=int,
         default=3,
         help="Number of components (2-16, default: 3)",
     )
     parser.add_argument(
-        "-s", "--separator",
+        "-s",
+        "--separator",
         default="-",
         help="Separator between components (default: -)",
     )
     parser.add_argument(
-        "-m", "--max-length",
+        "-m",
+        "--max-length",
         type=int,
         default=None,
         help="Maximum length per element",
     )
     parser.add_argument(
-        "-n", "--count",
+        "-n",
+        "--count",
         type=int,
         default=1,
         help="Number of names to generate (default: 1)",
     )
     parser.add_argument(
-        "-V", "--version",
+        "-V",
+        "--version",
         action="version",
         version=f"%(prog)s {__version__}",
     )
